@@ -53,7 +53,7 @@ class Star {
         this.floatingY = Math.random() * height;
 
         this.vx = 0.05 + Math.random() * 0.08;
-        this.vy = (Math.random() - 0.5) * 0.05;
+        this.vy = (Math.random() - 0.5) * 0.04;
 
         let rawPoint;
         if (this.isOutline) {
@@ -80,37 +80,35 @@ class Star {
         this.floatingX += this.vx;
         this.floatingY += this.vy;
 
-        if (formationProgress === 0) {
-            if (this.floatingX > width) {
-                this.floatingX = 0;
-                this.x = 0;
-            } else if (this.floatingX < 0) {
-                this.floatingX = width;
-                this.x = width;
-            }
+        if (this.floatingX > width) {
+            this.floatingX = 0;
+            this.x -= width;
+        } else if (this.floatingX < 0) {
+            this.floatingX = width;
+            this.x += width;
+        }
 
-            if (this.floatingY > height) {
-                this.floatingY = 0;
-                this.y = 0;
-            } else if (this.floatingY < 0) {
-                this.floatingY = height;
-                this.y = height;
-            }
+        if (this.floatingY > height) {
+            this.floatingY = 0;
+            this.y -= height;
+        } else if (this.floatingY < 0) {
+            this.floatingY = height;
+            this.y += height;
         }
 
         const targetX = this.floatingX + (this.heartX - this.floatingX) * formationProgress;
         const targetY = this.floatingY + (this.heartY - this.floatingY) * formationProgress;
 
-        this.x += (targetX - this.x) * 0.1;
-        this.y += (targetY - this.y) * 0.1;
+        this.x += (targetX - this.x) * 0.06;
+        this.y += (targetY - this.y) * 0.06;
     }
 
     draw() {
         const twinkle = Math.sin(Date.now() * this.twinkleSpeed + this.twinklePhase);
         const twinkleEffect = (twinkle + 1) / 2; 
 
-        const skyOpacity = 0.2 + (twinkleEffect * 0.4);
-        const baseOpacity = this.isOutline ? 0.6 : 0.2;
+        const skyOpacity = 0.2 + (twinkleEffect * 0.3);
+        const baseOpacity = this.isOutline ? 0.6 : 0.25;
         const heartOpacity = baseOpacity + (twinkleEffect * (1 - baseOpacity));
 
         const currentOpacity = skyOpacity + (heartOpacity - skyOpacity) * formationProgress;
@@ -143,8 +141,8 @@ function drawConnections() {
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < maxDist) {
-                const alpha = (1 - dist / maxDist) * formationProgress * (stars[i].isOutline && stars[j].isOutline ? 0.7 : 0.4);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                const alpha = (1 - dist / maxDist) * formationProgress * (stars[i].isOutline && stars[j].isOutline ? 0.7 : 0.35);
+                ctx.strokeStyle = `rgba(209, 217, 230, ${alpha})`;
                 ctx.beginPath();
                 ctx.moveTo(stars[i].x, stars[i].y);
                 ctx.lineTo(stars[j].x, stars[j].y);
