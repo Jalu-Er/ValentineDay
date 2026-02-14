@@ -77,30 +77,21 @@ class Star {
     }
 
     update() {
-        this.floatingX += this.vx;
-        this.floatingY += this.vy;
+        this.floatingX += this.vx * (1 - formationProgress);
+        this.floatingY += this.vy * (1 - formationProgress);
 
-        if (this.floatingX > width) {
-            this.floatingX = 0;
-            this.x -= width;
-        } else if (this.floatingX < 0) {
-            this.floatingX = width;
-            this.x += width;
-        }
-
-        if (this.floatingY > height) {
-            this.floatingY = 0;
-            this.y -= height;
-        } else if (this.floatingY < 0) {
-            this.floatingY = height;
-            this.y += height;
+        if (formationProgress < 0.01) {
+            if (this.floatingX > width) this.floatingX = 0;
+            if (this.floatingX < 0) this.floatingX = width;
+            if (this.floatingY > height) this.floatingY = 0;
+            if (this.floatingY < 0) this.floatingY = height;
         }
 
         const targetX = this.floatingX + (this.heartX - this.floatingX) * formationProgress;
         const targetY = this.floatingY + (this.heartY - this.floatingY) * formationProgress;
 
-        this.x += (targetX - this.x) * 0.06;
-        this.y += (targetY - this.y) * 0.06;
+        this.x += (targetX - this.x) * 0.12;
+        this.y += (targetY - this.y) * 0.12;
     }
 
     draw() {
