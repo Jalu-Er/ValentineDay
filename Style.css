@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #03050a; /* Lebih gelap dari sebelumnya */
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.8;
+}
+
+#starCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 25px;
+}
+
+.main-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    letter-spacing: 8px;
+    color: #d1d9e6; /* Warna perak redup */
+    text-shadow: 0 0 20px rgba(209, 217, 230, 0.3);
+}
+
+.scroll-indicator {
+    margin-top: 15px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.4;
+}
+
+/* Card Poem - Lebih transparan dan sendu */
+.poem-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 50px 30px;
+    border-radius: 30px;
+    max-width: 550px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.poem-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.poem-card p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #b0b0b0;
+    font-weight: 300;
+}
+
+.poem-card strong {
+    color: #d1d9e6;
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+/* Bagian Akhir */
+.final-text {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: #d1d9e6;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 2.5s ease;
+    margin-top: 50vh;
+}
+
+.final-text.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.final-text span {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-top: 15px;
+    color: #8a8a8a;
+    letter-spacing: 1px;
+}
+
+.final-text strong {
+    color: #d1d9e6;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .main-title { font-size: 1.6rem; letter-spacing: 5px; }
+    .final-text { font-size: 1.4rem; }
+}
